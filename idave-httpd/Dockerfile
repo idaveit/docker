@@ -1,6 +1,6 @@
 FROM httpd:2.4-alpine
 
-RUN apk add --update mariadb-dev make gcc musl-dev apache2-dev
+RUN apk add --update mariadb-dev make gcc musl-dev
 RUN mkdir -p /usr/local/src/mod_auth_cookie_mysql2
 RUN mkdir -p /usr/local/src/cronolog
 COPY mod_auth_cookie_mysql2/* /usr/local/src/mod_auth_cookie_mysql2/

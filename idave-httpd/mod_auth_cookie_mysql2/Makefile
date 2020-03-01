@@ -5,8 +5,8 @@
 # "apxs" is searched in all directories of your PATH variable.
 # If apxs cannot be found during the make process, you can adjust
 # the path, i.e.:
-#APXS = /usr/local/apache2/bin/apxs
-APXS = /usr/bin/apxs
+APXS = /usr/local/apache2/bin/apxs
+#APXS = /usr/bin/apxs
 
 # mysql_config is searched in all directories of your PATH variable.
 # If apxs cannot be found during the make process, you can adjust the
