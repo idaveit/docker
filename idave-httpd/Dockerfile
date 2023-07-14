@@ -12,6 +12,8 @@ RUN make
 RUN make install
 WORKDIR /usr/local/src/cronolog
 RUN ls -al src
+ARG BUILDARCH
+RUN if [ '$BUILDARCH' == 'amd64' ]; then echo "running ./configure --build=x86_64-unknown-linux-gnu"; elif [ '$BUILDARCH' == 'arm64' ]; then echo "running ./configure --build=aarch64-unknown-linux-gnu"; else echo "running ./configure"; fi
 RUN if [ '$BUILDARCH' == 'amd64' ]; then ./configure --build=x86_64-unknown-linux-gnu; elif [ '$BUILDARCH' == 'arm64' ]; then ./configure --build=aarch64-unknown-linux-gnu; else ./configure; fi
 RUN make
 RUN make install
