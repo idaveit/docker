@@ -37,8 +37,6 @@ jobs:
       
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
-        with:
-          platforms: arm64
 
       - name: Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -55,5 +53,5 @@ jobs:
           context: "{{defaultContext}}:idave-httpd"
           push: true
           tags: idave/httpd:latest
-          platforms: linux/arm64
+          platforms: linux/arm64,linux/amd64
         if: ${{steps.check.outputs.needs-updating == 'true' || inputs.first_run}}
