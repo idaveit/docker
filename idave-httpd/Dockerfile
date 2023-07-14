@@ -1,7 +1,7 @@
 FROM httpd:2.4-alpine
 
-ARG BUILDARCH
-RUN echo "I'm building for $BUILDARCH"
+ARG TARGETARCH
+RUN echo "I'm building for $TARGETARCH"
 RUN apk add --update mariadb-dev make gcc musl-dev apr apr-dev apr-util-dev apr-util automake autoconf
 RUN mkdir -p /usr/local/src/mod_auth_cookie_mysql2
 RUN mkdir -p /usr/local/src/cronolog
@@ -14,8 +14,8 @@ RUN make
 RUN make install
 WORKDIR /usr/local/src/cronolog
 RUN ls -al src
-RUN if [ '$BUILDARCH' == 'amd64' ]; then echo "running ./configure --build=x86_64-unknown-linux-gnu"; elif [ '$BUILDARCH' == 'arm64' ]; then echo "running ./configure --build=aarch64-unknown-linux-gnu"; else echo "running ./configure"; fi
-RUN if [ '$BUILDARCH' == 'amd64' ]; then ./configure --build=x86_64-unknown-linux-gnu; elif [ '$BUILDARCH' == 'arm64' ]; then ./configure --build=aarch64-unknown-linux-gnu; else ./configure; fi
+RUN if [ $TARGETARCH == 'amd64' ]; then echo "running ./configure --build=x86_64-unknown-linux-gnu"; elif [ $BUILDARCH == 'arm64' ]; then echo "running ./configure --build=aarch64-unknown-linux-gnu"; else echo "running ./configure"; fi
+RUN if [ $TARGETARCH == 'amd64' ]; then ./configure --build=x86_64-unknown-linux-gnu; elif [ $BUILDARCH == 'arm64' ]; then ./configure --build=aarch64-unknown-linux-gnu; else ./configure; fi
 RUN make
 RUN make install
 RUN rm -rf /usr/bin/aclocal-1.13 /usr/bin/automake-1.13
