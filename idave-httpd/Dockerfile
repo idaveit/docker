@@ -1,5 +1,6 @@
 FROM httpd:2.4-alpine
 
+ARG BUILDARCH
 RUN apk add --update mariadb-dev make gcc musl-dev apr apr-dev apr-util-dev apr-util automake autoconf
 RUN mkdir -p /usr/local/src/mod_auth_cookie_mysql2
 RUN mkdir -p /usr/local/src/cronolog
@@ -12,7 +13,6 @@ RUN make
 RUN make install
 WORKDIR /usr/local/src/cronolog
 RUN ls -al src
-ARG BUILDARCH
 RUN if [ '$BUILDARCH' == 'amd64' ]; then echo "running ./configure --build=x86_64-unknown-linux-gnu"; elif [ '$BUILDARCH' == 'arm64' ]; then echo "running ./configure --build=aarch64-unknown-linux-gnu"; else echo "running ./configure"; fi
 RUN if [ '$BUILDARCH' == 'amd64' ]; then ./configure --build=x86_64-unknown-linux-gnu; elif [ '$BUILDARCH' == 'arm64' ]; then ./configure --build=aarch64-unknown-linux-gnu; else ./configure; fi
 RUN make
