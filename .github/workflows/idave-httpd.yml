@@ -19,10 +19,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump First Run
-        run: echo "first_run is ${{ github.events.input.first_run }}"
-        shell: bash
-        
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -33,7 +30,7 @@ jobs:
           base-image: httpd:2.4-alpine
           image: idave/httpd:latest
           platforms: linux/arm64
-        if: github.events.input.first_run == 'false'
+        if: ! inputs.first_run
       
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
@@ -50,4 +47,4 @@ jobs:
           push: true
           tags: idave/httpd:latest
           platforms: linux/arm64
-        if: steps.check.outputs.needs-updating == 'true' || github.events.input.first_run == 'true'
+        if: steps.check.outputs.needs-updating == 'true' || inputs.first_run
