@@ -1,6 +1,7 @@
 FROM httpd:2.4-alpine
 
 ARG BUILDARCH
+RUN echo "I'm building for $BUILDARCH"
 RUN apk add --update mariadb-dev make gcc musl-dev apr apr-dev apr-util-dev apr-util automake autoconf
 RUN mkdir -p /usr/local/src/mod_auth_cookie_mysql2
 RUN mkdir -p /usr/local/src/cronolog
