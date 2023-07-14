@@ -6,6 +6,7 @@ RUN mkdir -p /usr/local/src/cronolog
 COPY mod_auth_cookie_mysql2/* /usr/local/src/mod_auth_cookie_mysql2/
 COPY cronolog/. /usr/local/src/cronolog/
 RUN ln -sf /usr/bin/aclocal /usr/bin/aclocal-1.13
+RUN ln -sf /usr/bin/automake /usr/bin/automake-1.13
 WORKDIR /usr/local/src/mod_auth_cookie_mysql2
 RUN make
 RUN make install
@@ -14,5 +15,5 @@ RUN ls -al src
 RUN ./configure
 RUN make
 RUN make install
-RUN rm -rf /usr/bin/aclocal-1.13
+RUN rm -rf /usr/bin/aclocal-1.13 /usr/bin/automake-1.13
 RUN apk del mariadb-dev make gcc musl-dev apache2-dev apr apr-dev apr-util-dev apr-util automake autoconf
