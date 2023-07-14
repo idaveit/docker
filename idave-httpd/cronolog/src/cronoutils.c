@@ -137,7 +137,7 @@ new_log_file(const char *template, const char *linkname, mode_t linktype, const 
 
     start_of_period = start_of_this_period(time_now, periodicity, period_multiple);
     tm = localtime(&start_of_period);
-    strftime(pfilename, BUFSIZE, template, tm);
+    strftime(pfilename, pfilename_len, template, tm);
     *pnext_period = start_of_next_period(start_of_period, periodicity, period_multiple) + period_delay;
     
     DEBUG(("%s (%d): using log file \"%s\" from %s (%d) until %s (%d) (for %d secs)\n",
@@ -170,7 +170,7 @@ new_log_file(const char *template, const char *linkname, mode_t linktype, const 
 }
 
 int
-ready_to_read(int fd, int seconds_remaining)
+ready_to_read(int fd, time_t seconds_remaining)
 {
     fd_set set;
     FD_ZERO(&set); /* clear the set */
@@ -291,11 +291,13 @@ create_link(char *pfilename,
 	int len = slash ? slash - linkname + 1 : -1;
 	if (len > 0 && strncmp(pfilename, linkname, len) == 0)
 	    pfilename += len;
-	symlink(pfilename, linkname);
+	if (symlink(pfilename, linkname) < 0)
+	    perror("Error creating logfile symlink");
     }
     else
     {
-	link(pfilename, linkname);
+	if (link(pfilename, linkname) < 0)
+	    perror("Error creating logfile link");
     }
 #else
     fprintf(stderr, "Creating link from %s to %s not supported", pfilename, linkname);
