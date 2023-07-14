@@ -11,11 +11,12 @@ on:
         default: 'warning'
 
 jobs:
-  check:
+  docker:
     runs-on: ubuntu-latest
-    outputs:
-      needs-updating: ${{ steps.check.outputs.needs-updating }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Check if update available
         id: check
         uses: lucacome/docker-image-update-checker@v1
@@ -23,15 +24,7 @@ jobs:
           base-image: httpd:2.4-alpine
           image: idave/httpd:latest
           platforms: linux/arm64
-
-build:
-    needs: check
-    runs-on: ubuntu-latest
-    if: needs.check.outputs.needs-updating == 'true'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
+      
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
         with:
@@ -47,3 +40,4 @@ build:
           push: true
           tags: idave/httpd:latest
           platforms: linux/arm64
+        if: steps.check.outputs.needs-updating == 'true'
