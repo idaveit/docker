@@ -1,18 +1,43 @@
-name: iDave HTTPD
+name: Check for idave-httpd updates
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  schedule:
+    - cron:  '0 4 * * *'
 
 jobs:
-
-  build:
-
+  check:
     runs-on: ubuntu-latest
-
+    outputs:
+      needs-updating: ${{ steps.check.outputs.needs-updating }}
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag idave-httpd:$(date +%s)
+      - name: Check if update available
+        id: check
+        uses: lucacome/docker-image-update-checker@v1
+        with:
+          base-image: httpd:2.4-alpine
+          image: idave/httpd:latest
+          platforms: linux/arm64
+
+build:
+    needs: check
+    runs-on: ubuntu-latest
+    if: needs.check.outputs.needs-updating == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: idave/httpd:latest
+          platforms: linux/arm64
