@@ -12,7 +12,7 @@ RUN make
 RUN make install
 WORKDIR /usr/local/src/cronolog
 RUN ls -al src
-RUN ./configure
+RUN ./configure --build=aarch64-unknown-linux-gnu
 RUN make
 RUN make install
 RUN rm -rf /usr/bin/aclocal-1.13 /usr/bin/automake-1.13
