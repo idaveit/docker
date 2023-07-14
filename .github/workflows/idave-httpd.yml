@@ -32,7 +32,7 @@ jobs:
         with:
           base-image: httpd:2.4-alpine
           image: idave/httpd:latest
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64
         if: ${{!inputs.first_run}}
       
       - name: Setup QEMU
