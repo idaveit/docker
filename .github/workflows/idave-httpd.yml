@@ -9,6 +9,12 @@ on:
         description: 'Log level'     
         required: true
         default: 'warning'
+      first_run:
+        type: choice
+        description: First run?
+        options:
+        - yes
+        - no
 
 jobs:
   docker:
@@ -24,6 +30,7 @@ jobs:
           base-image: httpd:2.4-alpine
           image: idave/httpd:latest
           platforms: linux/arm64
+        if: github.events.input.first_run == 'false'
       
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2
@@ -40,4 +47,4 @@ jobs:
           push: true
           tags: idave/httpd:latest
           platforms: linux/arm64
-        if: steps.check.outputs.needs-updating == 'true'
+        if: steps.check.outputs.needs-updating == 'true' or github.events.input.first_run == 'true'
