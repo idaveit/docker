@@ -19,6 +19,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump First Run
+        run: echo "first_run is ${{ github.events.input.first_run }}"
+        shell: bash
+        
       - name: Checkout
         uses: actions/checkout@v3
 
