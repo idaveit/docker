@@ -1,6 +1,6 @@
 FROM php:7-fpm-alpine
 
-RUN apk add --update pcre-dev bzip2-dev libzip-dev gettext-dev freetype-dev libjpeg-turbo-dev libpng-dev libxpm-dev libxml2-dev
+RUN apk add --update pcre-dev bzip2-dev libzip-dev gettext-dev freetype-dev libjpeg-turbo-dev libpng-dev libxpm-dev libxml2-dev apache2-utils
 RUN docker-php-ext-install -j$(nproc) opcache
 RUN docker-php-ext-install -j$(nproc) mysqli
 RUN docker-php-ext-install -j$(nproc) bz2
