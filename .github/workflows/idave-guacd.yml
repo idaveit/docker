@@ -23,8 +23,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'apache/guacamole-server'
-          set-safe-directory: '/home/runner/work/docker/docker'
-      
+          
       - name: Checkout patch
         uses: actions/checkout@v3
         with:
@@ -33,7 +32,7 @@ jobs:
           path: 'docker-patch'
       
       - name: List directory #1
-        run: ls -al /home/runner/work/docker/docker
+        run: ls -al idave-guacd
       
       - name: Patch official Dockerfile
         run: patch /home/runner/work/docker/docker/Dockerfile /home/runner/work/docker/docker-patch/idave-guacd/dockerfile.patch
