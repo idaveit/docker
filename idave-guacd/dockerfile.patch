@@ -1,6 +1,14 @@
---- Dockerfile-base.txt	2023-07-19 15:47:37
-+++ Dockerfile-patched.txt	2023-07-19 15:48:52
-@@ -137,7 +137,12 @@
+--- /Users/idave/Downloads/Dockerfile (2).txt	2023-07-19 16:18:20
++++ /Users/idave/Downloads/Dockerfile-edited.txt	2023-07-19 16:17:49
+@@ -23,6 +23,7 @@
+ 
+ # The Alpine Linux image that should be used as the basis for the guacd image
+ ARG ALPINE_BASE_IMAGE=latest
++ARG TARGETPLATFORM
+ FROM alpine:${ALPINE_BASE_IMAGE} AS builder
+ 
+ # Install build dependencies
+@@ -137,7 +138,12 @@
      -DLWS_WITH_STATIC=OFF"
  
  # Build guacamole-server and its core protocol library dependencies
