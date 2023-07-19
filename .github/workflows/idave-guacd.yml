@@ -19,12 +19,20 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           repository: 'apache/guacamole-server'
-
+      
+      - name: Checkout patch
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            idave-guacd
+      
+      - name: Patch official Dockerfile
+        run: patch Dockerfile dockerfile.patch
+      
       - name: Check if update available
         id: check
         uses: lucacome/docker-image-update-checker@v1
