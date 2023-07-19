@@ -1,0 +1,57 @@
+name: Check for idave-guacd updates
+
+on:
+  schedule:
+    - cron:  '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      first_run:
+        type: boolean
+        description: First run?
+        required: false
+        default: false
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            idave-guacd
+
+      - name: Check if update available
+        id: check
+        uses: lucacome/docker-image-update-checker@v1
+        with:
+          base-image: guacamole/guacd:latest
+          image: idave/guacd:latest
+          platforms: linux/amd64,linux/arm64
+        if: ${{!inputs.first_run}}
+      
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Login to Docker registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: "{{defaultContext}}:idave-guacd"
+          push: true
+          tags: idave/guacd:latest
+          platforms: linux/arm64,linux/amd64
+        if: ${{steps.check.outputs.needs-updating == 'true' || inputs.first_run}}
