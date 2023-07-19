@@ -30,13 +30,10 @@ jobs:
         with:
           sparse-checkout: |
             idave-guacd
-          set-safe-directory: '/home/runner/work/docker/docker-patch'
+          path: 'docker-patch'
       
       - name: List directory #1
         run: ls -al /home/runner/work/docker/docker
-      
-      - name: List directory #2
-        run: ls -al /home/runner/work/docker/docker-patch
       
       - name: Patch official Dockerfile
         run: patch /home/runner/work/docker/docker/Dockerfile /home/runner/work/docker/docker-patch/idave-guacd/dockerfile.patch
