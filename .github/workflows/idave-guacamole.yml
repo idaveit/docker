@@ -23,8 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          sparse-checkout: |
-            idave-guacamole
+          with:
+            repository: 'apache/guacamole-client'
 
       - name: Check if update available
         id: check
@@ -50,7 +50,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:idave-guacamole"
+          context: .
           push: true
           tags: idave/guacamole:latest
           platforms: linux/arm64,linux/amd64
