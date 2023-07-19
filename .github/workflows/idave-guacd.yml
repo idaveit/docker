@@ -52,4 +52,5 @@ jobs:
           push: true
           tags: idave/guacd:latest
           platforms: linux/arm64,linux/amd64
+          context: "{{defaultContext}}:guacamole-server"
         if: ${{steps.check.outputs.needs-updating == 'true' || inputs.first_run}}
