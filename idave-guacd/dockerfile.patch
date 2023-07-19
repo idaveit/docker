@@ -1,5 +1,5 @@
---- /Users/idave/Downloads/Dockerfile (2).txt	2023-07-19 16:18:20
-+++ /Users/idave/Downloads/Dockerfile-edited.txt	2023-07-19 16:17:49
+--- Dockerfile-orig.txt	2023-07-19 16:18:20
++++ Dockerfile-edited.txt	2023-07-19 16:17:49
 @@ -23,6 +23,7 @@
  
  # The Alpine Linux image that should be used as the basis for the guacd image
@@ -13,7 +13,7 @@
  
  # Build guacamole-server and its core protocol library dependencies
 -RUN ${BUILD_DIR}/src/guacd-docker/bin/build-all.sh
-+RUN echo "$TARGETPLATFORM"
++RUN echo "platform = $TARGETPLATFORM"
 +RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; \
 +    then FREERDP_OPTS="${FREERDP_OPTS_COMMON}    -DWITH_SSE2=ON" && echo "SSE2 active"; \
 +    else FREERDP_OPTS="${FREERDP_OPTS_COMMON}    -DWITH_SSE2=OFF" && echo "SSE2 disabled"; \
