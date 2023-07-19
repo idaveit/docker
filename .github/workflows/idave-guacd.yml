@@ -32,10 +32,10 @@ jobs:
           path: 'docker-patch'
       
       - name: List directory #1
-        run: ls -al docker-patch
+        run: ls -al docker-patch/idave-guacd/
       
       - name: Patch official Dockerfile
-        run: patch Dockerfile docker-patch/dockerfile.patch
+        run: patch Dockerfile docker-patch/idave-guacd/dockerfile.patch
       
       - name: Check if update available
         id: check
