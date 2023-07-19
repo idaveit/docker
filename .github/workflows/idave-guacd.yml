@@ -31,7 +31,7 @@ jobs:
             idave-guacd
       
       - name: List directory
-        run: ls -al '***guacd'
+        run: ls -al '***-guacd'
       
       - name: Patch official Dockerfile
         run: patch Dockerfile idave-guacd/dockerfile.patch
