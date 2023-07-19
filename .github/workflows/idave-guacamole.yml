@@ -23,8 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          with:
-            repository: 'apache/guacamole-client'
+          repository: 'apache/guacamole-client'
 
       - name: Check if update available
         id: check
