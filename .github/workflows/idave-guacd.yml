@@ -32,7 +32,7 @@ jobs:
           path: 'docker-patch'
       
       - name: List directory #1
-        run: ls -al idave-guacd
+        run: ls -al 
       
       - name: Patch official Dockerfile
         run: patch /home/runner/work/docker/docker/Dockerfile /home/runner/work/docker/docker-patch/idave-guacd/dockerfile.patch
