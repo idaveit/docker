@@ -23,18 +23,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'apache/guacamole-server'
+          set-safe-directory: '/home/runner/work/docker/docker'
       
       - name: Checkout patch
         uses: actions/checkout@v3
         with:
           sparse-checkout: |
             idave-guacd
-      
-      - name: List directory
-        run: ls -al '***-guacd'
+          set-safe-directory: '/home/runner/work/docker/docker-patch'
       
       - name: Patch official Dockerfile
-        run: patch Dockerfile idave-guacd/dockerfile.patch
+        run: patch /home/runner/work/docker/docker/Dockerfile /home/runner/work/docker/docker-patch/idave-guacd/dockerfile.patch
       
       - name: Check if update available
         id: check
