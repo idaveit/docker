@@ -31,7 +31,7 @@ jobs:
             idave-guacd
       
       - name: Patch official Dockerfile
-        run: patch Dockerfile dockerfile.patch
+        run: patch Dockerfile idave-guacd/dockerfile.patch
       
       - name: Check if update available
         id: check
