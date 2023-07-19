@@ -29,6 +29,8 @@ jobs:
         with:
           sparse-checkout: |
             idave-guacd
+      - name: List directory
+        run: ls -al
       
       - name: Patch official Dockerfile
         run: patch Dockerfile idave-guacd/dockerfile.patch
