@@ -35,7 +35,7 @@ jobs:
         run: ls -al 
       
       - name: Patch official Dockerfile
-        run: patch /home/runner/work/docker/docker/Dockerfile /home/runner/work/docker/docker-patch/idave-guacd/dockerfile.patch
+        run: patch Dockerfile docker-patch/dockerfile.patch
       
       - name: Check if update available
         id: check
