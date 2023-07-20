@@ -24,6 +24,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'apache/guacamole-client'
+          
+      - name: Checkout patch
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            idave-guacamole
+          path: 'docker-patch'
+      
+      - name: Patch official Dockerfile
+        run: cp docker-patch/Dockerfile Dockerfile
 
       - name: Check if update available
         id: check
