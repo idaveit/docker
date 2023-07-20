@@ -33,7 +33,7 @@ jobs:
           path: 'docker-patch'
       
       - name: Patch official Dockerfile
-        run: cp docker-patch/Dockerfile Dockerfile
+        run: cp docker-patch/idave-guacamole/Dockerfile Dockerfile
 
       - name: Check if update available
         id: check
