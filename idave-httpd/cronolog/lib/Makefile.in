@@ -98,8 +98,6 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libutil_a_AR = $(AR) $(ARFLAGS)
 libutil_a_DEPENDENCIES = @LIBOBJS@
-am_libutil_a_OBJECTS = getopt.$(OBJEXT) getopt1.$(OBJEXT)
-libutil_a_OBJECTS = $(am_libutil_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -128,8 +126,6 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libutil_a_SOURCES)
-DIST_SOURCES = $(libutil_a_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -154,7 +150,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+DISTFILES = $(DIST_COMMON) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
@@ -246,7 +242,6 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libutil.a
-libutil_a_SOURCES = getopt.c getopt1.c getopt.h
 libutil_a_LIBADD = @LIBOBJS@
 EXTRA_DIST = localtime_r.c strptime.c
 all: all-am
@@ -287,9 +282,9 @@ $(am__aclocal_m4_deps):
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
 
-libutil.a: $(libutil_a_OBJECTS) $(libutil_a_DEPENDENCIES) $(EXTRA_libutil_a_DEPENDENCIES) 
+libutil.a: $(libutil_a_DEPENDENCIES) $(EXTRA_libutil_a_DEPENDENCIES) 
 	$(AM_V_at)-rm -f libutil.a
-	$(AM_V_AR)$(libutil_a_AR) libutil.a $(libutil_a_OBJECTS) $(libutil_a_LIBADD)
+	$(AM_V_AR)$(libutil_a_AR) libutil.a $(libutil_a_LIBADD)
 	$(AM_V_at)$(RANLIB) libutil.a
 
 mostlyclean-compile:
@@ -304,8 +299,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/mktime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/stat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/strptime.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getopt.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getopt1.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
